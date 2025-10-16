@@ -34,20 +34,12 @@ public class DashboardController {
     @FXML private TextField txtPrecio;
 
 
-    @FXML private TextField txtBuscar;
-
-    @FXML private TextField txtIdDetalle;
     @FXML private TextField txtTipoDetalle;
     @FXML private TextField txtCiudadDetalle;
     @FXML private TextField txtNumHabDetalle;
     @FXML private TextField txtNumPisosDetalle;
     @FXML private TextField txtPrecioDetalle;
 
-    @FXML private TextField txtPisosNuevos;
-    @FXML private TextField txtHabitacionesNuevas;
-    @FXML private TextField txtPrecioNuevo;
-    @FXML private TextField txtCiudadEdicion;
-    @FXML private TextField txtTipoEdicion;
 
     private InmuebleRepository repo;
 
@@ -110,7 +102,7 @@ public class DashboardController {
 
     @FXML
     private void guardarInmueble(){
-        if(validarCampos(txtCiudad, txtNumHabitaciones, txtNumPisos, txtPrecio)){
+        if(validarCampos(txtCiudad, txtNumHabitaciones, txtNumPisos, txtPrecio, cmbTipo)){
             return;
         }
         try {
@@ -191,7 +183,7 @@ public class DashboardController {
         alert.showAndWait();
     }
 
-    private boolean validarCampos(TextField txtCiudad, TextField txtNumHabitaciones, TextField txtNumPisos,TextField txtPrecio) {
+    private boolean validarCampos(TextField txtCiudad, TextField txtNumHabitaciones, TextField txtNumPisos,TextField txtPrecio, ComboBox<TipoInmueble> cmbTipo) {
         if (txtCiudad.getText().trim().isEmpty()) {
             mostrarAlerta("Error de validación", "La ciudad es obligatoria", Alert.AlertType.WARNING);
             return true;
@@ -206,6 +198,10 @@ public class DashboardController {
         }
         if (txtPrecio.getText().trim().isEmpty()) {
             mostrarAlerta("Error de validación", "El precio es obligatorio", Alert.AlertType.WARNING);
+            return true;
+        }
+        if(cmbTipo.getValue() == null){
+            mostrarAlerta("Error de validación", "Debe seleccionar un tipo de inmueble", Alert.AlertType.WARNING);
             return true;
         }
 
